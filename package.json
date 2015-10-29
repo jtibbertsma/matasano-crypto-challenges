@@ -1,0 +1,17 @@
+{
+  "name": "matasano",
+  "version": "1.0.0",
+  "description": "I should work through these. It'll be good exercise.",
+  "scripts": {
+    "test": "jasmine"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jtibbertsma/matasano-crypto-challenges.git"
+  },
+  "author": "Joseph Tibbertsma",
+  "homepage": "https://github.com/jtibbertsma/matasano-crypto-challenges",
+  "dependencies": {
+    "jasmine": "^2.3.2"
+  }
+}
