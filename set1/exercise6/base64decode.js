@@ -17,30 +17,40 @@ var MAP = {
   '+': 62, '/': 63
 };
 
-function decodeBase64(base64string) {
-  var chunk = /[A-Z0-9/+]{4}/gi, match, result = [];
+function decodeBase64(string) {
+  var chunk = /[A-Z0-9/+]{4}/gi, match, data = [];
 
-  while (match = chunk.exec(base64string)) {
-    result.push(byteOne(MAP[match[0][0]], MAP[match[0][1]]));
-    result.push(byteTwo(MAP[match[0][1]], MAP[match[0][2]]));
-    result.push(byteThree(MAP[match[0][2]], MAP[match[0][3]]));
+  while (match = chunk.exec(string)) {
+    var a = MAP[match[0][0]],
+        b = MAP[match[0][1]],
+        c = MAP[match[0][2]],
+        d = MAP[match[0][3]];
+
+    data.push(byteOne(a, b));
+    data.push(byteTwo(b, c));
+    data.push(byteThree(c, d));
   }
 
-  var trailing = base64string.slice(base64string.length - 4, base64string.length);
-  if (/[A-Z0-9/+]{3}=|[A-Z0-9/+]{2}==/i.test(trailing)) {
-    handleTrailing(trailing, result);
-  }
-
-  return result;
+  return handleEnd(string, data);
 }
 
-function handleTrailing(str, result) {
-  result.push(byteOne(MAP[str[0]], MAP[str[1]]));
+// deal with sequences ending with '=' or '=='
+function handleEnd(string, data) {
+  var trailing = string.slice(string.length - 4, string.length);
 
-  // two byte case
-  if (str[2] !== '=') {
-    result.push(byteTwo(MAP[str[1]], MAP[str[2]]));
+  if (/[A-Z0-9/+]{3}=|[A-Z0-9/+]{2}==/i.test(trailing)) {
+    var a = MAP[trailing[0]],
+        b = MAP[trailing[1]],
+        c = MAP[trailing[2]];
+    data.push(byteOne(a, b));
+
+    // two byte case
+    if (trailing[2] !== '=') {
+      data.push(byteTwo(b, c));
+    }
   }
+
+  return data;
 }
 
 function byteOne(a, b) {
@@ -59,7 +69,7 @@ function decodeFile(filename, callback) {
   fs.readFile(filename, function (err, data) {
     if (err) throw err;
 
-    data = data.toString().replace('\n', '');
+    data = data.toString().replace(/\s+/g, '');
     callback(decodeBase64(data));
   });
 }
