@@ -1,19 +1,34 @@
-module.exports = decodeXORCipher;
+module.exports = {
+  decode: decodeXORCipher,
+  metric: englishLanguageMetric
+};
 
 function decodeXORCipher(hexString) {
   var valArray = hexDecode(hexString),
-      simpleRejection = /[^a-z',.!? ]/i;
+      maxMatch = 0,
+      result = null;
 
   for (var i = 0; i < 128; ++i) {
     var xor = doXOR(valArray, i)
-        str = valuesToString(xor);
+        str = valuesToString(xor),
+        val = englishLanguageMetric(str);
 
-    if (!simpleRejection.test(str)) {
-      return str;
+    if (val > maxMatch) {
+      maxMatch = val;
+      result = str;
     }
   }
 
-  return null;
+  return result;
+}
+
+function englishLanguageMetric(str) {
+  var common = /[ETAOIN SHRDLU]/ig,
+      count = 0;
+
+  while (common.test(str)) count++;
+
+  return count / str.length;
 }
 
 function hexDecode(string) {
