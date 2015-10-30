@@ -3,7 +3,7 @@ module.exports = searchForEnglish;
 var fs = require('fs');
 var ex3 = require('./exercise3');
 
-var decode = ex3.decode, metric = ex3.metric
+var decode = ex3.decode, metric = ex3.metric;
 
 function searchForEnglish(callback) {
   fs.readFile('set1/ex4data.txt', function (err, data) {
