@@ -1,5 +1,5 @@
 describe('repeating-key XOR Encoder', function () {
-  var encode = require('../set1/exercise5');
+  var encode = require('../set1/exercise5').encodeToHex;
 
   it('encodes the first example', function () {
     var decoded = "Burning 'em, if you ain't quick and nimble\nI go crazy when I hear a cymbal",
