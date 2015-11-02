@@ -13,7 +13,7 @@ describe('Best Key Length Calculator', function () {
 
     // Hopefully we can get at least two of these to pass
     it('in this case', function () {
-      var encrypted = encode(data, "BALLS");
+      var encrypted = encode(data, "MExico");
 
       expect(bestLength(encrypted)).toEqual(5);
     });

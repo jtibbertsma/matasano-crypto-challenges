@@ -6,17 +6,33 @@ var distance = require('./hammingDistance');
 module.exports = bestKeyLength;
 
 function bestKeyLength(data) {
-  var minNormalized = data.length * 8, current, bestLength = 0;
+  var minNormalized = data.length * 8, bestLength = 0;
 
-  for (var i = 2; i < 44 && i * 2 < data.length; i++) {
-    var slice1 = data.slice(0,i),
-        slice2 = data.slice(i,i*2);
+  for (var i = 2; i < 44 && i * 4 < data.length; i++) {
+    var slices = [], distances = [], current;
 
-    if ((current = distance(slice1, slice2) / i) < minNormalized) {
+    for (var j = 0; j < 4; ++j) {
+      slices.push(data.slice(i*j, i*(j+1)));
+    }
+
+    for (var n = 0; n < slices.length-1; n++) {
+      for (var m = n+1; m < slices.length; m++) {
+        distances.push(distance(slices[n], slices[m]));
+      }
+    }
+    current = arrayAverage(distances) / i;
+
+    if (current < minNormalized) {
       minNormalized = current;
       bestLength = i;
     }
   }
 
   return bestLength;
+}
+
+function arrayAverage(array) {
+  return array.reduce(function (memo, value) {
+    return memo + value;
+  }, 0) / array.length;
 }
