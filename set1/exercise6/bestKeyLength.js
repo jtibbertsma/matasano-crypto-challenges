@@ -1,12 +1,13 @@
-// Find the likeliest key length of data encrypted with repeating key
+// Find the likeliest key lengths of data encrypted with repeating key
 // XOR encryption
 
 var distance = require('./hammingDistance');
 
 module.exports = bestKeyLength;
 
+// return the top 4 key lengths
 function bestKeyLength(data) {
-  var minNormalized = data.length * 8, bestLength = 0;
+  var distanceData = [];
 
   for (var i = 2; i < 44 && i * 4 < data.length; i++) {
     var slices = [], distances = [], current;
@@ -21,14 +22,18 @@ function bestKeyLength(data) {
       }
     }
     current = arrayAverage(distances) / i;
-
-    if (current < minNormalized) {
-      minNormalized = current;
-      bestLength = i;
-    }
+    distanceData.push([current, i]);
   }
+  
+  return distanceData.sort(compare).map(function (item) {
+    return item[1];
+  }).slice(0,4);
+}
 
-  return bestLength;
+function compare(a, b) {
+  if      (a[0] < b[0]) return -1;
+  else if (a[0] > b[0]) return  1;
+  else                  return  0;
 }
 
 function arrayAverage(array) {

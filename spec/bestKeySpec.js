@@ -1,12 +1,12 @@
 describe('Best Key Length Calculator', function () {
   var read = require('fs').readFileSync;
-  var bestLength = require('../set1/exercise6/bestKeyLength');
+  var bestLengths = require('../set1/exercise6/bestKeyLength');
   var encode = require('../set1/exercise5').encode;
 
   var data;
 
   beforeAll(function () {
-    data = read('spec/hexToBase64Spec.js').toString();
+    data = read('spec/helpers/text.txt').toString();
   });
 
   describe('calculates the best key length', function () {
@@ -15,19 +15,19 @@ describe('Best Key Length Calculator', function () {
     it('in this case', function () {
       var encrypted = encode(data, "MExico");
 
-      expect(bestLength(encrypted)).toEqual(5);
+      expect(bestLengths(encrypted)).toContain(6);
     });
 
     it('in this case as well', function () {
       var encrypted = encode(data, "MADSKILLS");
 
-      expect(bestLength(encrypted)).toEqual(9);
+      expect(bestLengths(encrypted)).toContain(9);
     });
 
     it('also in this case', function () {
       var encrypted = encode(data, "TACO");
 
-      expect(bestLength(encrypted)).toEqual(4);
+      expect(bestLengths(encrypted)).toContain(4);
     });
   });
 });
