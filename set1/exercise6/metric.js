@@ -71,5 +71,5 @@ function metric(data) {
     }
   });
 
-  return score;
+  return score / data.length;
 }
