@@ -11,7 +11,6 @@ describe('Best Key Length Calculator', function () {
 
   describe('calculates the best key length', function () {
 
-    // Hopefully we can get at least two of these to pass
     it('in this case', function () {
       var encrypted = encode(data, "MExico");
 

@@ -9,18 +9,15 @@ module.exports = bestKeyLength;
 function bestKeyLength(data) {
   var distanceData = [];
 
-  for (var i = 2; i < 44 && i * 4 < data.length; i++) {
-    var slices = [], distances = [], current;
+  for (var i = 2; i < 44 && i * 2 < data.length; i++) {
+    var distances = [], current;
 
-    for (var j = 0; j < 4; ++j) {
-      slices.push(data.slice(i*j, i*(j+1)));
+    for (var j = 0; j < data.length-i*2; j += i*2) {
+      var slice1 = data.slice(j, j + i),
+          slice2 = data.slice(j + i, j + i*2);
+      distances.push(distance(slice1, slice2));
     }
 
-    for (var n = 0; n < slices.length-1; n++) {
-      for (var m = n+1; m < slices.length; m++) {
-        distances.push(distance(slices[n], slices[m]));
-      }
-    }
     current = arrayAverage(distances) / i;
     distanceData.push([current, i]);
   }
