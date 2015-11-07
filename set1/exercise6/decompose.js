@@ -1,4 +1,4 @@
-var metric = require('./metric.js');
+var metric = require('./metric');
 
 module.exports = decompose;
 
