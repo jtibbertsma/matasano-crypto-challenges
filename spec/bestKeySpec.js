@@ -28,5 +28,11 @@ describe('Best Key Length Calculator', function () {
 
       expect(bestLengths(encrypted)).toContain(4);
     });
+
+    it('finally, in this case', function () {
+      var encrypted = encode(data, "A handful of tangerines");
+
+      expect(bestLengths(encrypted)).toContain(23);
+    });
   });
 });
