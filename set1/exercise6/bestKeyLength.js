@@ -13,8 +13,8 @@ function bestKeyLength(data) {
     var distances = [], current;
 
     for (var j = 0; j < data.length-i*2; j += i*2) {
-      var slice1 = data.slice(j, j + i),
-          slice2 = data.slice(j + i, j + i*2);
+      var slice1 = data.slice(j, j + i)
+        , slice2 = data.slice(j + i, j + i*2);
       distances.push(distance(slice1, slice2));
     }
 

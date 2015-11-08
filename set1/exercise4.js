@@ -10,9 +10,9 @@ function searchForEnglish(callback) {
     if (err) callback(err, null);
 
     data = data.toString();
-    var line = /^[a-f0-9]+$/gim,
-        match, result = null,
-        maxMatch = 0, val, current;
+    var line = /^[a-f0-9]+$/gim
+      , match, result = null
+      , maxMatch = 0, val, current;
 
     while (match = line.exec(data)) {
       current = decode(match[0]);

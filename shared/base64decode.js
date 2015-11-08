@@ -23,10 +23,10 @@ function decodeBase64(string) {
   var chunk = /[A-Z0-9/+]{4}/gi, match, data = [];
 
   while (match = chunk.exec(string)) {
-    var a = MAP[match[0][0]],
-        b = MAP[match[0][1]],
-        c = MAP[match[0][2]],
-        d = MAP[match[0][3]];
+    var a = MAP[match[0][0]]
+      , b = MAP[match[0][1]]
+      , c = MAP[match[0][2]]
+      , d = MAP[match[0][3]];
 
     data.push(byteOne(a, b));
     data.push(byteTwo(b, c));
@@ -41,9 +41,9 @@ function handleEnd(string, data) {
   var trailing = string.slice(string.length - 4, string.length);
 
   if (/[A-Z0-9/+]{3}=|[A-Z0-9/+]{2}==/i.test(trailing)) {
-    var a = MAP[trailing[0]],
-        b = MAP[trailing[1]],
-        c = MAP[trailing[2]];
+    var a = MAP[trailing[0]]
+      , b = MAP[trailing[1]]
+      , c = MAP[trailing[2]];
     data.push(byteOne(a, b));
 
     // two byte case

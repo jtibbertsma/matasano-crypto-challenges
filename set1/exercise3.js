@@ -4,14 +4,14 @@ module.exports = {
 };
 
 function decodeXORCipher(hexString) {
-  var valArray = hexDecode(hexString),
-      maxMatch = 0,
-      result = null;
+  var valArray = hexDecode(hexString)
+    , maxMatch = 0
+    , result = null;
 
   for (var i = 0; i < 128; ++i) {
     var xor = doXOR(valArray, i)
-        str = valuesToString(xor),
-        val = englishLanguageMetric(str);
+      , str = valuesToString(xor)
+      , val = englishLanguageMetric(str);
 
     if (val > maxMatch) {
       maxMatch = val;
@@ -23,8 +23,8 @@ function decodeXORCipher(hexString) {
 }
 
 function englishLanguageMetric(str) {
-  var common = /[ETAOIN SHRDLU]/ig,
-      count = 0;
+  var common = /[ETAOIN SHRDLU]/ig
+    , count = 0;
 
   while (common.test(str)) count++;
 
@@ -32,9 +32,9 @@ function englishLanguageMetric(str) {
 }
 
 function hexDecode(string) {
-  var result = [],
-      chunk = /[a-f0-9]{2}/gi,
-      match;
+  var result = []
+    , chunk = /[a-f0-9]{2}/gi
+    , match;
 
   while (match = chunk.exec(string)) {
     result.push(parseInt(match[0], 16));

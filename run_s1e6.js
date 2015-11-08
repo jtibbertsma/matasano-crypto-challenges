@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
-var metric        = require('./set1/exercise6/metric'),
-    decompose     = require('./set1/exercise6/decompose'),
-    bestKeyLength = require('./set1/exercise6/bestKeyLength'),
-    base64        = require('./shared/base64decode');
+var metric        = require('./set1/exercise6/metric')
+  , decompose     = require('./set1/exercise6/decompose')
+  , bestKeyLength = require('./set1/exercise6/bestKeyLength')
+  , base64        = require('./shared/base64decode');
 
 function bytesToText(bytes) {
   var text = '';
@@ -14,13 +14,13 @@ function bytesToText(bytes) {
 }
 
 function main(data) {
-  var keyLengths = bestKeyLength(data),
-      bestKey = '', bestString = '', bestScore = -10000000;
+  var keyLengths = bestKeyLength(data)
+    , bestKey = '', bestString = '', bestScore = -10000000;
 
   for (var i = 0; i < keyLengths.length; ++i) {
-    var decomposed = decompose(data, keyLengths[i]),
-        decodedData = decomposed.decodedData(),
-        score = metric(decodedData);
+    var decomposed = decompose(data, keyLengths[i])
+      , decodedData = decomposed.decodedData()
+      , score = metric(decodedData);
 
     if (score > bestScore) {
       bestScore = score;

@@ -7,8 +7,8 @@ function repeatXOREncode(text, key) {
   var result = [];
 
   for (var i = 0; i < text.length; i++) {
-    var v1 = text[i].charCodeAt(0),
-        v2 = key[i % key.length].charCodeAt(0);
+    var v1 = text[i].charCodeAt(0)
+      , v2 = key[i % key.length].charCodeAt(0);
 
     result.push(v1 ^ v2);
   }
