@@ -1,5 +1,5 @@
 describe('Base64 decoder', function () {
-  var decode = require('../set1/exercise6/base64decode').decodeBase64;
+  var decode = require('../shared/base64decode').decodeBase64;
 
   it('converts base64 to an array of bytes', function () {
     var decoded = this.textToBytes('pleasure.'),

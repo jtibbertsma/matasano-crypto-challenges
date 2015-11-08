@@ -3,7 +3,7 @@
 var metric        = require('./set1/exercise6/metric'),
     decompose     = require('./set1/exercise6/decompose'),
     bestKeyLength = require('./set1/exercise6/bestKeyLength'),
-    base64        = require('./set1/exercise6/base64decode');
+    base64        = require('./shared/base64decode');
 
 function bytesToText(bytes) {
   var text = '';
