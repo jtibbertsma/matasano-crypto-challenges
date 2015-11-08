@@ -17,6 +17,8 @@ var MAP = {
   '+': 62, '/': 63
 };
 
+// decodeBase64 takes a base 64 string and returns the data decoded as an
+// array of bytes
 function decodeBase64(string) {
   var chunk = /[A-Z0-9/+]{4}/gi, match, data = [];
 

@@ -1,9 +1,17 @@
 #!/usr/bin/env node
 
-var metric = require('./set1/exercise6/metric');
-var decompose = require('./set1/exercise6/decompose');
-var bestKeyLength = require('./set1/exercise6/bestKeyLength');
-var base64 = require('./set1/exercise6/base64decode');
+var metric        = require('./set1/exercise6/metric'),
+    decompose     = require('./set1/exercise6/decompose'),
+    bestKeyLength = require('./set1/exercise6/bestKeyLength'),
+    base64        = require('./set1/exercise6/base64decode');
+
+function bytesToText(bytes) {
+  var text = '';
+  bytes.forEach(function (byte) {
+    text += String.fromCharCode(byte);
+  });
+  return text;
+}
 
 function main(data) {
   var keyLengths = bestKeyLength(data),
@@ -11,19 +19,19 @@ function main(data) {
 
   for (var i = 0; i < keyLengths.length; ++i) {
     var decomposed = decompose(data, keyLengths[i]),
-        decodedString = decomposed.decodedString(),
-        score = metric(decodedString);
+        decodedData = decomposed.decodedData(),
+        score = metric(decodedData);
 
     if (score > bestScore) {
       bestScore = score;
-      bestString = decodedString;
+      bestString = bytesToText(decodedData);
       bestKey = decomposed.bestKey();
     }
   }
 
-  console.log("Decode Key: " + bestKey);
+  console.log("\nDecode Key: " + bestKey);
   console.log("==================================================================\n");
-  console.log(decodedString);
+  console.log(bestString);
 }
 
 base64.decodeFile("./set1/exercise6/breakThis.txt", main);

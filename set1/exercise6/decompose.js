@@ -4,7 +4,7 @@ module.exports = decompose;
 
 // given a key length n and an array of data, create a Decomposed object
 function decompose(data, keyLength) {
-  var dataArray = [], i = 0, j;
+  var dataArray = [], i, j;
   for (i = 0; i < keyLength; ++i) dataArray.push([]);
 
   for (i = 0, j = 0; i < data.length; ++i, ++j) {
@@ -32,7 +32,7 @@ Decomposed.prototype = {
   },
 
   // get the decoded string
-  decodedString: function () {
+  decodedData: function () {
     if (this.key.length === 0) {
       this.doDecode();
     }
@@ -41,15 +41,15 @@ Decomposed.prototype = {
 
   // calculate the decoded string from the decoded data array
   recompose: function () {
-    var string = '';
+    var recomposed = [];
     for (var i = 0; i < this.decoded[0].length; ++i) {
       for (var j = 0; j < this.decoded.length; ++j) {
         if (i === this.decoded[j].length)
           break;
-        string += this.decoded[j][i];
+        recomposed.push(this.decoded[j][i]);
       }
     }
-    return string;
+    return recomposed;
   },
 
   // calculate the key and decode the data
@@ -61,13 +61,14 @@ Decomposed.prototype = {
           return i ^ datum;
         });
         var score = metric(attemptedDecode);
+
         if (score > bestScore) {
           bestScore = score;
           bestArray = attemptedDecode;
           letter = i;
         }
       }
-      this.key.push(letter);
+      this.key += String.fromCharCode(letter);
       return bestArray;
     }.bind(this));
   }
